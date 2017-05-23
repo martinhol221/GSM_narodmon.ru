@@ -1,5 +1,5 @@
 /* скетч для ардуино с отправкой данных на сервер narodmon.ru  кажные 5 минут с 3 датчиков и одного АЦП.
-Наастройка ; измениете индивидуальный номер датчика для народмона с SI-M8-00-12-34-56 на свой SI-M8-00-X-XX-XX
+Наастройка ; измениете индивидуальный номер датчика для народмона на свой SI-M8-00-XX-XX-XX
 проверьте правильность подключения ардуино и СИМ 800 SoftwareSerial SIM800(8, 7) (TX>RX, RX>TX)
 сконфигурируйте APN AT+CSTT=\"internet.mts.by\" для своего сотового оператора
 */
@@ -49,14 +49,14 @@ void loop() {
     } else if (at.indexOf("CONNECT OK") > -1 && modem == 8 ) {SIM800.println("AT+CIPSEND"), Serial.println("C O N N E C T OK"), modem = 9;
     
     } else if (at.indexOf(">") > -1 && modem == 9 ) {  // "набиваем" пакет данными и шлем на сервер 
-         Serial.print("#SI-M8-00-12-34-56#SIM800+Sensor"); // индивидуальный номер и имя уствойства для народмона, у кждого свой !
+         Serial.print("#SI-M8-00-XX-XX-XX#SIM800+Sensor"); // индивидуальный номер и имя уствойства для народмона, у кждого свой !
          Serial.print("\n#Temp1#"), Serial.print(tempds0);       
          Serial.print("\n#Temp2#"), Serial.print(tempds1);       
          Serial.print("\n#Temp3#"), Serial.print(tempds2);       
          Serial.print("\n#Vbat#"),  Serial.print(Vbat);         
          Serial.println("\n##");      // обязательный параметр окончания пакета данных
          delay(500);  // копию шлем в модем
-         SIM800.print("#SI-M8-00-12-34-56#SIM800+Sensor"); // индивидуальный номер для народмона
+         SIM800.print("#SI-M8-00-XX-XX-XX#SIM800+Sensor"); // индивидуальный номер для народмона, это правило
          if (tempds0 > -40 && tempds0 < 54) SIM800.print("\n#Temp1#"), SIM800.print(tempds0);       
          if (tempds1 > -40 && tempds1 < 54) SIM800.print("\n#Temp2#"), SIM800.print(tempds1);       
          if (tempds2 > -40 && tempds2 < 54) SIM800.print("\n#Temp3#"), SIM800.print(tempds2);       
