@@ -57,13 +57,13 @@ void loop() {
          Serial.println("\n##");      // обязательный параметр окончания пакета данных
          delay(500);  // копию шлем в модем
          SIM800.print("#SI-M8-00-12-34-56#SIM800+Sensor"); // индивидуальный номер для народмона
-         SIM800.print("\n#Temp1#"), SIM800.print(tempds0);       
-         SIM800.print("\n#Temp2#"), SIM800.print(tempds1);       
-         SIM800.print("\n#Temp3#"), SIM800.print(tempds2);       
+         if (tempds0 > -40 && tempds0 < 54) SIM800.print("\n#Temp1#"), SIM800.print(tempds0);       
+         if (tempds1 > -40 && tempds1 < 54) SIM800.print("\n#Temp2#"), SIM800.print(tempds1);       
+         if (tempds2 > -40 && tempds2 < 54) SIM800.print("\n#Temp3#"), SIM800.print(tempds2);       
          SIM800.print("\n#Vbat#"),  SIM800.print(Vbat);         
          SIM800.println("\n##");      // обязательный параметр окончания пакета данных
          SIM800.println((char)26), delay (100);
-         SIM800.println ("");
+        // SIM800.println ("");
          modem = 0, delay (100), SIM800.println("AT+CIPSHUT"); // закрываем пакет
 
      } else Serial.println(at);    // если пришло что-то другое выводим в серийный порт
@@ -84,9 +84,6 @@ void detection(){ // условия проверяемые каждые 10 се�
   tempds0 = sensors.getTempCByIndex(0);
   tempds1 = sensors.getTempCByIndex(1);
   tempds2 = sensors.getTempCByIndex(2);   
-    if (tempds0==-127) tempds0 = 52.99;  // превращаем -127 не подключенного датчика в 52.99, иначе сервер будет ругаться
-    if (tempds1==-127) tempds1 = 53.99;  
-    if (tempds2==-127) tempds2 = 54.99;
   Vbat = analogRead(BAT_Pin);  // замеряем АЦП (напряжение на батарее)
   Vbat = Vbat / m ; // переводим попугаи в вольты
   Serial.print("Vbat= "),Serial.print(Vbat), Serial.print (" V.");  
