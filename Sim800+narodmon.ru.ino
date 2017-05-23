@@ -44,7 +44,7 @@ void loop() {
            
     } else if (at.indexOf("OK") > -1 && modem == 6) {Serial.println("AT+CIICR OK"), SIM800.println("AT+CIFSR"), modem = 7;  
              
-    } else if (at.indexOf(".") > -1 && modem == 7) {Serial.println("IP  OK"), SIM800.println("AT+CIPSTART=\"TCP\",\"narodmon.ru\",\"8283\""), modem = 8;                                
+    } else if (at.indexOf(".") > -1 && modem == 7) {Serial.println(at), SIM800.println("AT+CIPSTART=\"TCP\",\"narodmon.ru\",\"8283\""), modem = 8;                                
           
     } else if (at.indexOf("CONNECT OK") > -1 && modem == 8 ) {SIM800.println("AT+CIPSEND"), Serial.println("C O N N E C T OK"), modem = 9;
     
