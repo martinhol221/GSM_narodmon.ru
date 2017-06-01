@@ -11,9 +11,7 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
 #define BAT_Pin A3      // на батарею, через делитель напряжения к примеру 39кОм / 11 кОм
-float tempds0 = 52;     // переменная хранения температуры с датчика двигателя
-float tempds1 = 54;     // переменная хранения температуры с датчика на улице
-float tempds2 = 53;
+float tempds0, float tempds1, float tempds2;
 
 int k = 0;
 int interval = 3;     
@@ -26,7 +24,7 @@ float m = 66.91;         // делитель для перевода АЦП в �
 void setup() {
   Serial.begin(9600);  //скорость порта
   SIM800.begin(9600);  //скорость связи с модемом
-  Serial.println("Starting SIM800+ narodmon 1.0 23/05/2017"), delay(2000); 
+  Serial.println("Starting SIM800+ narodmon 1.5 01/06/2017"), delay(2000); 
   SIM800.println("ATE0"), delay(100); // отключаем режим ЭХА 
              }
 
@@ -90,6 +88,7 @@ void detection(){ // условия проверяемые каждые 10 се�
   Serial.print(" || Temp1 : "), Serial.print(tempds0);  
   Serial.print(" || Temp2 : "), Serial.print(tempds1);  
   Serial.print(" || Temp3 : "), Serial.print(tempds2);  
+  Serial.print(" || Modem : "), Serial.print(modem);
   Serial.print(" || Interval : "), Serial.println(interval);  
   interval--;
   if (interval <1 ) interval = 30, modem = 1; // 30 * 10 = 300 сек = 5 минут
