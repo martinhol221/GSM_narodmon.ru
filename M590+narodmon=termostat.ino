@@ -79,8 +79,8 @@ void loop() {
               buf=buf+ "##";                                                                // закрываем пакет ##
                m590.print("AT+TCPSEND=0,"),    m590.print(buf.length()),  m590.println(""), delay (200);               
     } else if (at.indexOf("AT+TCPSEND=0,") > -1 && at.indexOf("\r\r\n>") > -1) {m590.print(buf), Serial.println(buf), delay (500), m590.println("AT+TCPCLOSE=0");
-    } else if (at.indexOf("+TCPRECV:0,7,#estop") > -1 )                        {heating_comand = false;
-    } else if (at.indexOf("+TCPRECV:0,8,#estart") > -1 )                       {heating_comand = true ;
+    } else if (at.indexOf("+TCPRECV:0,13,#TERMOSTAT=0") > -1 )                       {heating_comand = false;
+    } else if (at.indexOf("+TCPRECV:0,13,#TERMOSTAT=1") > -1 )                       {heating_comand = true ;
    }
      Serial.println(at), at = ""; }          // печатаем ответ и очищаем переменную
 
