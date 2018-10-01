@@ -7,3 +7,4 @@
 ![](https://github.com/martinhol221/GSM_narodmon.ru/blob/master/img/gsm-m590.jpg)
 ![](https://github.com/martinhol221/GSM_narodmon.ru/blob/master/img/gsm-m590-2.jpg)
 ![](https://github.com/martinhol221/GSM_narodmon.ru/blob/master/img/gsm-m590-3.jpg)
+Comand: TERMOSTAT=0, or TERMOSTAT=1
