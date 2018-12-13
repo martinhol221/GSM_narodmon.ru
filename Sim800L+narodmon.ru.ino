@@ -26,9 +26,9 @@ float m = 66.91;                   // делитель для перевода �
 
 void setup() {
   
-  Serial.begin(9600);              //скорость порта
-  SIM800.begin(9600);              //скорость связи с модемом
-  Serial.println("Starting. | SIM800L+narodmon.ru. | MAC:"+MAC+" | NAME:"+SENS+" | APN:"+APN+" | 10/11/2017"); 
+  Serial.begin(115200);              //скорость порта
+  SIM800.begin(9600);                //скорость связи с модемом
+  Serial.println("Starting. | SIM800L+narodmon.ru. | MAC:"+MAC+" | NAME:"+SENS+" | APN:"+APN+" | 13/12/2018"); 
   delay (2000);
   SIM800.println("ATE1"), delay(50);        // отключаем режим ЭХА
              }
@@ -56,17 +56,22 @@ void loop() {
      Serial.println(at);                                                   // Возвращаем ответ можема в монитор порта
      at = "";  // очищаем переменную
                          }
-
+if (millis()> Time1 + 10000) Time1 = millis(), detection();       // выполняем функцию detection () каждые 10 сек 
 }
 
 void detection(){                           // условия проверяемые каждые 10 сек  
     sensors.requestTemperatures();          // читаем температуру с трех датчиков
     TempDS0 = sensors.getTempCByIndex(0);   // датчик на двигатель
+    Serial.println(TempDS0);
     TempDS1 = sensors.getTempCByIndex(1);   // датчик в салон
+    Serial.println(TempDS1);
     TempDS2 = sensors.getTempCByIndex(2);   // датчик на улицу 
+    Serial.println(TempDS2);
     Vbat = analogRead(BAT_Pin);             // замеряем напряжение на батарее
     Vbat = Vbat / m ;                       // переводим попугаи в вольты
+    Serial.println(Vbat);
     interval--;
     if (interval <1) interval = 30, SIM800.println ("AT+CGATT=1"), delay (200);    // подключаемся к GPRS 
-    if (interval == 28) SIM800.println ("AT+CIPSHUT");    
-                 }             
+    if (interval == 28) SIM800.println ("AT+CIPSHUT");  
+    Serial.println("------------------------");
+                     }             
